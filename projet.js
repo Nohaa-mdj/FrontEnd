@@ -100,7 +100,6 @@ async function afficherFiltres() {
         const filters = await response.json();
 
         // conteneur pour les filtres
-        const filtersContainer = document.querySelector(".filters");
         filtersContainer.innerHTML = ""; // Vider le conteneur pour ajouter les nouveaux boutons
 
         // Ajouter un bouton pour afficher tous les éléments
