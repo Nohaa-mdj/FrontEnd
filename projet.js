@@ -51,7 +51,7 @@ afficherGalerie()
 
 // Fonction pour récupérer et afficher la galerie
 async function afficherGalerie(categoryId = null) {
-    try {
+
         // Récupérer la liste des travaux depuis l'API
         const response = await fetch('http://localhost:5678/api/works');
         let works = await response.json();
@@ -80,9 +80,7 @@ async function afficherGalerie(categoryId = null) {
 
             gallery.appendChild(figure);
         });
-    } catch (error) {
-        console.error("Erreur lors de la récupération des travaux :", error);
-    }
+        
 }
 
 async function filters (categoryId = null) {
