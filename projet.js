@@ -79,6 +79,7 @@ getCategories()
 function setFilter(data) {
 
     const div = document.createElement("div")
+    div.addEventListener("click", () => alert("Salut"))
     div.innerHTML = `${data.name}`
 
     
