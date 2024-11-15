@@ -16,7 +16,9 @@ async function afficherGalerie(categoryId = null)
         works =  works.filter(work => work.categoryId == categoryId)
     }
 
-
+    works.forEach(work => {
+        console.log(`ID: ${work.id}, Catégorie: ${work.categoryId}, Titre: ${work.title}, Image URL: ${work.imageUrl}`);
+    })
 
 
 
@@ -50,7 +52,9 @@ afficherGalerie()
 
 
 // Fonction pour récupérer et afficher la galerie
-async function afficherGalerie(categoryId = null) {
+
+/*
+async function afficherGalerie(categoryId) {
 
         // Récupérer la liste des travaux depuis l'API
         const response = await fetch('http://localhost:5678/api/works');
@@ -68,7 +72,6 @@ async function afficherGalerie(categoryId = null) {
         // Ajouter chaque travail à la galerie
         works.forEach(work => {
             const figure = document.createElement("figure");
-
             const img = document.createElement("img");
             img.src = work.imageUrl;
             img.alt = work.title;
@@ -81,7 +84,7 @@ async function afficherGalerie(categoryId = null) {
             gallery.appendChild(figure);
         });
 
-}
+}  */
 
 
 
