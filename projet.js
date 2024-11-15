@@ -88,6 +88,8 @@ function setFilter(data) {
 }
 
 
+document.querySelector(".tous").addEventListener('click' () => afficherGalerie)
+
 
 
 
