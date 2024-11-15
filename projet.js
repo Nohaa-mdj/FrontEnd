@@ -80,69 +80,37 @@ async function afficherGalerie(categoryId = null) {
 
             gallery.appendChild(figure);
         });
-        
-}
-
-async function filters (categoryId = null) {
-
-    const response = await fetch ('http://localhost:5678/api/categories')
-    let categories = await response.json()
 
 }
 
 
-async function afficherFiltres() {
-    try {
-        // On récupère les catégories depuis l'API
-        const response = await fetch('http://localhost:5678/api/categories');
-        const filters = await response.json();
 
-        // conteneur pour les filtres
-        filtersContainer.innerHTML = ""; // Vider le conteneur pour ajouter les nouveaux boutons
 
-        // Ajouter un bouton pour afficher tous les éléments
-        const allButton = document.createElement("button");
-        allButton.classList.add("filter-button", "active");
-        allButton.dataset.category = "all";
-        allButton.innerText = "Tous";
-        filtersContainer.appendChild(allButton);
 
-        // Définir les filtres manuellement 
-        const categories = [
-            { id: 'all', name: 'Tous' },
-            { id: 'objets', name: 'Objets' },
-            { id: 'appartements', name: 'Appartements' },
-            { id: 'hotels-restaurants', name: 'Hotels & restaurants' }
-        ];
 
-        // Créer bouton pour chaque catégorie
-        categories.forEach(category => {
-            const button = document.createElement("button");
-            button.classList.add("filter-button");
-            button.dataset.category = category.id;
-            button.innerText = category.name;
-            filtersContainer.appendChild(button);
-        });
 
-        // Ajouter un événement pour chaque bouton de filtre
-        filtersContainer.addEventListener("click", (event) => {
 
-            if (event.target.classList.contains("filter-button")) {
-                
-                // Rendre le bouton actif et désactiver les autres
-                document.querySelectorAll(".filter-button").forEach(btn => btn.classList.remove("active"));
-                event.target.classList.add("active");
 
-                // Afficher la galerie filtrée selon la catégorie sélectionnée
-                const categoryId = event.target.dataset.category === "all" ? null : parseInt(event.target.dataset.category);
-                afficherGalerie(categoryId);
-            }
-        });
 
-    } catch (error) {
-        console.error("Erreur lors de la récupération des catégories :", error);
-    }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
