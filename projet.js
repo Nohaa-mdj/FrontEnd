@@ -76,10 +76,14 @@ getCategories()
 
 
 
-function setFilter() {
+function setFilter(data) {
 
     const div = document.createElement("div")
-    div.innerHTML
+    div.innerHTML = `${data.name}`
+
+    
+    document.querySelector(".div-container").append(div)
+
 }
 
 
