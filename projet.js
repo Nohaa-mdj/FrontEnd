@@ -49,6 +49,57 @@ async function afficherGalerie(categoryId = null)
 
 afficherGalerie()
 
+async function getCategories() {
+
+    const url = "http://localhost:5678/api/categories"
+    
+    try {
+        const response = await fetch (url) 
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`)
+        }
+
+        const json = await response.json()
+        console.log(json)
+
+        for (let i = 0; i < json.length ; i++) {
+            setFilter(json[i])
+        } 
+    }
+    catch (error){
+        console.error(error.message)
+    }
+
+}
+
+getCategories()
+
+
+const divContainer = document.createElement("div")
+document.body.append(divContainer)
+
+
+function setFilter() {
+
+    const div = document.createElement("div")
+    div.innerHTML
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // Fonction pour récupérer et afficher la galerie
