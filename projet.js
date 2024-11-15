@@ -75,9 +75,6 @@ async function getCategories() {
 getCategories()
 
 
-const divContainer = document.createElement("div")
-document.body.append(divContainer)
-
 
 function setFilter() {
 
