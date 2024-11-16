@@ -274,3 +274,23 @@ footer nav ul {
 	padding: 7px;
 	border-radius: 20px;
 }
+
+.edit {
+	background-color: black;
+	color: white;
+	height: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100vw; /* pour la largeur complète de la fenêtre */
+	position: absolute; /* Positionnement absolu pour sortir du flux */
+	left: 0; /* Alignez à gauche de la fenêtre */
+	top: 0; 
+}
+
+.edit a {
+	color: white;
+}
+.edit a:visited {
+	color: white;
+}
