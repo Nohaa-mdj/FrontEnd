@@ -22,6 +22,14 @@ document.addEventListener("DOMContentLoaded", () => {      //car ne détecte pas
             },
             body: JSON.stringify(user),
         }) 
+
+        console.log(response)
+        if (response.status != 200) {
+            const errorBox = document.createElement("div")
+            errorBox.className = "error-login"
+            errorBox.innerHTML = "Erreur de mail ou de mot de passe"
+            document.querySelector('form').prepend(errorBox)
+        }
         
         let result = await response.json()
         console.log(result)
