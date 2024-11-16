@@ -28,6 +28,15 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+
+a {
+	color: black;
+}
+
+a:visited {
+	color: black;
+}
+
 body {
 	line-height: 1;
 }
@@ -249,4 +258,8 @@ footer nav ul {
 
 #login label {
 	margin: 2em 0 1em 0;
+}
+
+#login p {
+	text-align: center;
 }
