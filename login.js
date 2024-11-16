@@ -27,5 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {      //car ne détecte pas
         console.log(result)
         console.log("E-mail:", email)
         console.log("Mot de passe:", password)
+
+        sessionStorage.setItem("token", result.token)
     }
 })
