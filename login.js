@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {      //car ne détecte pas
             errorBox.className = "error-login"
             errorBox.innerHTML = "Erreur de mail ou de mot de passe"
             document.querySelector('form').prepend(errorBox)
-        }
+        } else {
         
         let result = await response.json()
         console.log(result)
@@ -40,5 +40,6 @@ document.addEventListener("DOMContentLoaded", () => {      //car ne détecte pas
         sessionStorage.setItem("token", result.token)
 
         window.location.href = "index.html"
+        }
     }
 })
