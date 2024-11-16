@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {      //car ne détecte pas
         }) 
 
         console.log(response)
+
         if (response.status != 200) {
             const errorBox = document.createElement("div")
             errorBox.className = "error-login"
@@ -37,5 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {      //car ne détecte pas
         console.log("Mot de passe:", password)
 
         sessionStorage.setItem("token", result.token)
+
+        window.location.href = "index.html"
     }
 })

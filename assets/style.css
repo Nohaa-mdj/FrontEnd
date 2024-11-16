@@ -264,3 +264,13 @@ footer nav ul {
 #login p {
 	text-align: center;
 }
+
+.error-login {
+	border: 1px solid red;
+	background-color: #a84d4b;
+	color: white;
+	display: flex;
+	justify-content: center;
+	padding: 7px;
+	border-radius: 20px;
+}
