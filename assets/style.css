@@ -288,9 +288,6 @@ footer nav ul {
 	top: 0; 
 }
 
-.edit a {
-	color: white;
-}
-.edit a:visited {
-	color: white;
+.hidden {
+	visibility: collapse;
 }
