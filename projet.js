@@ -1,13 +1,12 @@
+/* 
+
 async function afficherGalerie(categoryId = null)
 {
-    /*
-    fetch('http://localhost:5678/api/works')
-      .then(response => response.json())
-      .then(json => console.log(json))
-    */
+
     //on récupère la liste des travaux depuis le backend 
     const response = await fetch('http://localhost:5678/api/works')
     let works = await response.json()
+    const filtered = words.filter((json => json))
 
     //on filtre si nécessaire : que si on nous donne un category Id (clique sur un bouton de filtre)
 
@@ -32,7 +31,7 @@ async function afficherGalerie(categoryId = null)
      /*   <figure>
 				<img src="assets/images/appartement-paris-v.png" alt="Appartement Paris V">
 				<figcaption>Appartement Paris V</figcaption>
-			</figure> */
+			</figure> 
 
         const figure = document.createElement("figure")
         const img = document.createElement("img")
@@ -47,7 +46,59 @@ async function afficherGalerie(categoryId = null)
     }
 }
 
+afficherGalerie() 
+
+*/
+
+
+async function afficherGalerie(filter) {
+    document.querySelector(".gallery").innerHTML = ""
+    const url = "http://localhost:5678/api/works"
+    
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        
+        const json = await response.json()
+        
+        if (filter) {
+            const filtered = json.filter((data) => data.categoryId === filter);
+            for (let i = 0; i < filtered.length; i++) {
+                setFigure(filtered[i]);
+            }
+        } else {
+            for (let i = 0; i < json.length; i++) {
+                setFigure(json[i]);
+            }
+        }
+    } catch (error) {
+        console.error(error.message) 
+    }
+}
+
 afficherGalerie()
+
+function setFigure(data) {
+    const figure = document.createElement("figure");
+    figure.innerHTML = `<img src="${data.imageUrl}" alt="${data.title}">
+                        <figcaption>${data.title}</figcaption>`
+    document.querySelector(".gallery").append(figure)
+}
+
+document.addEventListener("DOMContentLoaded", () => {           //être sûr que toutes les images s'affichent au début
+    afficherGalerie();  
+
+
+    const tousButton = document.querySelector(".tous");
+        tousButton.addEventListener("click", () => afficherGalerie());
+});
+
+
+afficherGalerie();
+
+
 
 async function getCategories() {
 
@@ -77,16 +128,14 @@ getCategories()
 
 
 function setFilter(data) {
-
+    console.log(data)
     const div = document.createElement("div")
-    div.addEventListener("click", () => alert("Salut"))
+    div.className = data.id
+    div.addEventListener("click", () => afficherGalerie(data.id))
     div.innerHTML = `${data.name}`
-
-    
     document.querySelector(".div-container").append(div)
 
 }
-
 
 document.querySelector(".tous").addEventListener("click", () => afficherGalerie())
 
