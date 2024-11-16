@@ -10,8 +10,8 @@ async function handleSubmit(event) {
     event.preventDefault()
 
     let user = {
-        email: document.getElementById('email').value,
-        password: document.getElementById('password').value
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value
      }
 
         
