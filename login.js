@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {      //car ne détecte pas
 const loginApi = "http://localhost:5678/api/users/login"
 
 
-document. getElementById('loginform').addEventListener ("submit", () => handleSubmit)
+document. getElementById("loginform").addEventListener ("submit", () => handleSubmit)
 
 async function handleSubmit(event) {
 
