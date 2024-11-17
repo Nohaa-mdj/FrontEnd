@@ -329,3 +329,15 @@ footer nav ul {
 *:focus {
 	box-shadow: 0 0 10px blue;
 }
+
+.gallery-modal {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-column-gap: 20px;
+	grid-row-gap: 20px;
+}
+
+.gallery-modal img {
+	width: 100%;
+}
