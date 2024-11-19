@@ -37,12 +37,7 @@ function setFigure(data) {
     document.querySelector(".gallery").append(figure)
 }
 
-function setModalFigure(data) {
-    const figure = document.createElement("figure");
-    figure.innerHTML = `<img src="${data.imageUrl}" alt="${data.title}">
-                        <figcaption>${data.title}</figcaption>`
-    document.querySelector(".gallery-modal").append(figure)
-}
+
 
 document.addEventListener("DOMContentLoaded", () => {           //être sûr que toutes les images s'affichent au début
     afficherGalerie();  
@@ -81,6 +76,17 @@ async function getCategories() {
 }
 
 getCategories()
+
+
+function setFilter(data) {
+    console.log(data)
+    const div = document.createElement("div")
+    div.className = data.id
+    div.addEventListener("click", () => afficherGalerie(data.id))
+    div.innerHTML = `${data.name}`
+    document.querySelector(".div-container").append(div)
+
+}
 
 
 function displayAdminMode() {
@@ -132,6 +138,19 @@ const stopPropagation = function(e) {
      
 }
 
+function setModalFigure(data) {
+    const figure = document.createElement("figure");
+    figure.innerHTML = `
+        <div class="image-container">
+            <img src="${data.imageUrl}" alt="${data.title}">
+            <figcaption>${data.title}</figcaption>
+            <i class="fa-solid fa-trash-can overlay-icon"></i>
+        </div>`;
+                       
+    document.querySelector(".gallery-modal").append(figure);
+}
+
+
 const focusInModal = function(e) {
     e.preventDefault()
     let index = focusables.findIndex(f => f === modal.querySelector(":focus"))
@@ -162,15 +181,6 @@ document.querySelectorAll(".js-modal").forEach(a => {
 })
 
 
-function setFilter(data) {
-    console.log(data)
-    const div = document.createElement("div")
-    div.className = data.id
-    div.addEventListener("click", () => afficherGalerie(data.id))
-    div.innerHTML = `${data.name}`
-    document.querySelector(".div-container").append(div)
-
-}
 
 
 

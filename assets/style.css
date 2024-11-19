@@ -400,3 +400,24 @@ h3 {
 .container p {
 	margin-left: 10px;
 }
+
+.image-container {
+	position: relative;
+	display: inline-block;
+}
+
+.image-container img {
+	display: block;
+}
+
+.image-container .overlay-icon {
+	position: absolute;
+	top: 6px;
+	right: 6px;
+	font-size: 16px;
+	background-color: black;
+	color: white;
+	padding: 5px;
+	border-radius: 10%;
+	cursor: pointer;
+}
