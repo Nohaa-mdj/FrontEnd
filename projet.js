@@ -192,124 +192,33 @@ document.querySelectorAll(".js-modal").forEach(a => {
 // fonction pour supprimer les éléments (ref l.29)
 
 async function deleteWork(event) {
-
-    const id = event.srcElement.id
+    event.stopPropagation();
     const deleteApi = "http://localhost:5678/api/works/"
-    const token = sessionStorage.token
-    console.log(token)
-
-   // let user = {
-   //     email : document.getElementById("email").value,
-   //     password : document.getElementById("password").value 
-   // }
-
-
-    let response = await fetch(`${deleteApi}${id}`, {
-       method : "DELETE",
-       headers :{
-        "Authorization": `Bearer ${sessionStorage.getItem("token")}`
-       } 
-       
-    })
-
-    if (response.status != 200) {
-        const errorBox = document.createElement("div")
-        errorBox. className= "error-login"
-        errorBox. innerHTML = "Il y a eu une erreur"
-        document. querySelector (".modal-button-container"). prepend (errorBox)
-    } else {
-        let result = await response. json()
-        const token = result. token
+    const id = event.srcElement.id;
+    const token = sessionStorage.Token;
+  
+    try {
+      const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+  
+      if (response.status == 401 || response.status == 500) {
+        const errorBox = document.createElement("div");
+        errorBox.className = "error-login";
+        errorBox.innerHTML = "Il y a eu une erreur";
+        document.querySelector(".modal-button-container").prepend(errorBox);
+      }
+    } catch (error) {
+      console.error("Erreur lors de la suppression:", error);
     }
-}
+  }
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* 
-async function recupererDonnees() {
-    try { 
-        const [travauxResponse, categoriesResponse] = await Promise.all ({fetch ("http://localhost/5678/api/works")
-        fetch ("http://localhost5678/api/categories")}
-
-        if (!travauxResponse.ok || !categoriesResponse.ok) {
-            throw new Error("Erreur lors de la récupération des données");
-        }
-        const travaux = await travauxResponse.json()
-        const categories = await categoriesResponse.json() }
-        afficherTravaux(travaux)
-        afficherCategories(categories);
-
-    catch (error) {
-        console.error("Erreur :", error)}
-        function afficherTravaux(travaux) {
-            const conteneurTravaux = document.getElementById("conteneur-travaux")
-            conteneurTravaux.innerHTML = ""
-        
-            travaux.forEach(travail => {
-                const travailElement = document.createElement("div");
-                travailElement.innerHTML = `<h3>${travail.title}</h3><p>${travail.description}</p>`;
-                conteneurTravaux.appendChild(travailElement);
-            })}
-
-            function afficherCategories(categories) {
-                const conteneurCategories = document.getElementById("conteneur-categories");
-                conteneurCategories.innerHTML = ""
-            
-                categories.forEach(categorie => {
-                    const categorieElement = document.createElement("div")
-                    categorieElement.innerHTML = `<h4>${categorie.name}</h4>`
-                    conteneurCategories.appendChild(categorieElement);
-                })}
-
-    }
-    */
   
