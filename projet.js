@@ -23,6 +23,15 @@ async function afficherGalerie(filter) {
                 setModalFigure(json[i])
             }
         }
+
+        //supprimer élément 
+
+        const trashCans = document.querySelectorAll(".fa-trash-can")       
+        console.log(trashCans)
+
+        trashCans.forEach(e => e.addEventListener("click", (event) => deleteWork(event)))
+
+
     } catch (error) {
         console.error(error.message) 
     }
@@ -179,6 +188,41 @@ window.addEventListener("keydown", function(e) {
 document.querySelectorAll(".js-modal").forEach(a => {
     a.addEventListener("click", openModal)
 })
+
+// fonction pour supprimer les éléments (ref l.29)
+
+async function deleteWork(event) {
+
+    const id = event.srcElement.id
+    const deleteApi = "http://localhost:5678/api/works/"
+    const token = sessionStorage.token
+    console.log(token)
+
+   // let user = {
+   //     email : document.getElementById("email").value,
+   //     password : document.getElementById("password").value 
+   // }
+
+
+    let response = await fetch(`${deleteApi}${id}`, {
+       method : "DELETE",
+       headers :{
+        "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+       } 
+       
+    })
+
+    if (response.status != 200) {
+        const errorBox = document.createElement("div")
+        errorBox. className= "error-login"
+        errorBox. innerHTML = "Il y a eu une erreur"
+        document. querySelector (".modal-button-container"). prepend (errorBox)
+    } else {
+        let result = await response. json()
+        const token = result. token
+    }
+}
+
 
 
 
