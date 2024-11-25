@@ -42,4 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {      //car ne détecte pas
         window.location.href = "index.html"
         }
     }
-})
+})    
+
+
+
