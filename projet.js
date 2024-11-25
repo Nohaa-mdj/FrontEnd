@@ -141,6 +141,7 @@ const openModal = function(e) {
     modal.addEventListener("click", closeModal)
     modal.querySelector(".js-modal-close").addEventListener("click", closeModal)
     modal.querySelector(".js-modal-stop").addEventListener("click", stopPropagation)
+
 }
 
 
@@ -263,41 +264,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 //Ajouter une photo 
 
-/*
-const switchModal = function() {
-    document.querySelector(".modal-wrapper").innerHTML = `
-      <div class="modal-buttons-container">
-      <button class="back-button">
-        <i class="fa-solid fa-arrow-left"></i>
-      </button>
-        <button class="js-modal-close">
-          <i class="fa-solid fa-xmark"></i>
-        </button>  
-      </div>
-      <h3>Ajout photo</h3>
-      <div class="add-photo-form"> 
-       <div class="image-upload-container">
-        <div class="blue-box">
-            <div class="image-placeholder">
-              <i class="fa-regular fa-image"></i>
-            <div>
-        </div>
-        <form action="#" id="form" method="post">
-        <input type="file" name="image" id="image" />
-          <label for="title">Titre</label>
-          <input type="text" name="title" id="title" />
-          <label for="category">Catégorie</label>
-          <input type="category" name="category">
-          <input type="submit" value="Valider" />
-        </form>
-      </div>
-      </div>
-      <hr/>
-      </div>`
-
-      document.querySelector(".back-button").addEventListener("click", openFirstModal);
-  };  */
-
 
   const switchModal = function() {
     document.querySelector(".modal-wrapper").innerHTML = `
@@ -340,7 +306,10 @@ const switchModal = function() {
 
  const addPhotoButton = document.querySelector(".add-photo-button")
  console.log(addPhotoButton);
- addPhotoButton.addEventListener("click", switchModal)    
+ addPhotoButton.addEventListener("click", switchModal)  
+ 
+
+
 
  document.addEventListener("DOMContentLoaded", () => {
     const addPhotoButton = document.querySelector(".add-photo-button");
@@ -352,12 +321,29 @@ const switchModal = function() {
   });       
 
 
+  modal.querySelector(".back-button").addEventListener("click", openModal) 
+  modal.querySelector(".js-modal-close").addEventListener("click", closeModal)
+ 
+
+ const backButton = document.querySelector(".back-button")
+ backButton.addEventListener("click", openModal)
+
+
+
 
 
 
  const toggleModal = () => {
     const modalWrapper = document.querySelector(".modal-wrapper");
     modalWrapper.classList.toggle("is-open");
+
+    if (
+        (document.querySelector(".gallery-modal").style.display = "flex") === "flex"
+    ) {
+        document.querySelector(".gallery-modal").style.display = "none";
+        document.querySelector(".add-modal").style.display = "block"
+    }
+
   };   
 
  
