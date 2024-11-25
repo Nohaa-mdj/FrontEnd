@@ -360,7 +360,7 @@ footer nav ul {
 h3 {
     text-align: center;
     display: block;
-    font-family: 'Work Sans';
+    font-family: 'Syne';
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 20px; 
@@ -459,11 +459,14 @@ h3 {
     font-family: 'Syne';
     font-weight: 700;
     color: white;
-    background-color: #1D6154;
+    /* background-color: #1D6154; */
+	background-color: rgb(156, 156, 156);
     width: 180px;
     text-align: center;
     border-radius: 60px;
     margin: 2em auto;
+	padding: 7px;
+	border: none;
 }
 
 .image-upload-container {
@@ -474,17 +477,17 @@ h3 {
 }
 
 .image-placeholder {
-    border: 2px dashed #ccc;
     padding: 20px;
     text-align: center;
     width: 100%;
-    max-width: 300px;
+    max-width: 500px;
     position: relative;
 }
 
 .image-placeholder i {
-    font-size: 50px;
+    font-size: 100px;
     color: #ccc;
+	margin-bottom: 10px;
 }
 
 .upload-button {
@@ -516,6 +519,7 @@ h3 {
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-bottom: 20px;
+	background-color: white;
 }
 
 hr {
@@ -539,11 +543,24 @@ hr {
 
 .blue-box {
     background-color: #E8F0FE; /* Bleu clair */
-    border: 2px solid #A0C4FF; /* Bordure bleu */
     border-radius: 5px;
     padding: 20px;
     text-align: center;
     width: 100%;
     max-width: 500px;
+	max-height: 210px;
     margin: 0 auto 20px auto; /* Centrer et espacer en bas */
+}
+
+.picture-add {
+    background-color: #dee1e8;
+    color: #306485;
+    padding: 10px 20px;
+    border-radius: 30px;
+    display: inline-block;
+    font-weight: bold;
+    cursor: pointer;
+	border: none;
+	width: 40%;
+	margin-bottom: 5px;
 }

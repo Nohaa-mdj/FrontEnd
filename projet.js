@@ -263,6 +263,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 //Ajouter une photo 
 
+/*
 const switchModal = function() {
     document.querySelector(".modal-wrapper").innerHTML = `
       <div class="modal-buttons-container">
@@ -278,7 +279,7 @@ const switchModal = function() {
        <div class="image-upload-container">
         <div class="blue-box">
             <div class="image-placeholder">
-              <i class="fa-solid fa-image"></i>
+              <i class="fa-regular fa-image"></i>
             <div>
         </div>
         <form action="#" id="form" method="post">
@@ -293,6 +294,46 @@ const switchModal = function() {
       </div>
       <hr/>
       </div>`
+
+      document.querySelector(".back-button").addEventListener("click", openFirstModal);
+  };  */
+
+
+  const switchModal = function() {
+    document.querySelector(".modal-wrapper").innerHTML = `
+     <div class="modal-buttons-container">
+      <button class="back-button">
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
+        <button class="js-modal-close">
+          <i class="fa-solid fa-xmark"></i>
+        </button>  
+      </div>
+     <h3>Ajout photo</h3>
+          <div class="form add-photo-form">
+          <div class="blue-box">
+            <div class="image-placeholder">
+              <i class="fa-regular fa-image"></i>
+            <div>
+            <div class="file-section">
+                  <div id="photo-container"></div>
+                  <button class="picture-add" for="file">+ Ajouter photo</button>
+                  <p class="picture-loaded">jpg, png : 4mo max</p>
+                </div> 
+        </div>
+              <form id="picture-form" action="#" method="post"> 
+                <label for="title">Titre</label>
+                <input type="text" name="title" id="title" />
+                <label for="category">Catégorie</label>
+                <select id="category" name="category" size="1">
+                  <option value="1">Objets</option>
+                  <option value="2">Appartements</option>
+                  <option value="3">Hotels & restaurants</option>
+                </select>
+                <hr />
+                <input type="submit" value="Valider" />
+              </form>
+            </div> `
 
       document.querySelector(".back-button").addEventListener("click", openFirstModal);
   };
@@ -317,7 +358,7 @@ const switchModal = function() {
  const toggleModal = () => {
     const modalWrapper = document.querySelector(".modal-wrapper");
     modalWrapper.classList.toggle("is-open");
-  };
+  };   
 
  
 
@@ -406,4 +447,4 @@ function handlePictureSubmit() {
       alert("Veuillez remplir tous les champs");
     }
   });
-}
+}                  
