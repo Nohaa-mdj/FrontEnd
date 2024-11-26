@@ -280,14 +280,15 @@ document.addEventListener("DOMContentLoaded", () => {
             <form id="picture-form" action="#" method="post"> 
                 <div class="blue-box">
                     <div class="image-placeholder">
+                    <div id="image-preview"></div>
                     <i class="fa-regular fa-image"></i>
                     <div>
                     <div class="file-section">
                         <div id="photo-container"></div>
-                        <input type="file" id="file" style="display: none;" />
+                        <input type="file" id="file" style="display: none;" accept="image/*" />
                         <button class="picture-add" for="file" id="triggerFileUpload">+ Ajouter photo</button>
 
-                        <p class="picture-loaded">jpg, png : 4mo max</p>
+                        <div class="picture-loaded"><p>jpg, png : 4mo max</p></div
                         </div> 
                     </div>  
                     
@@ -306,14 +307,59 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
             `
 
+
+
             document.getElementById("triggerFileUpload").addEventListener("click", function(event) {
                 event.preventDefault(); // --> Empêche le rechargement de la page
                 document.getElementById("file").click(); // Déclenche le clic sur l'input caché pour mettre photo
+
+                const imagePreview = document.getElementById("photo-container"); 
+
+             
+
+
+      // Fonction pour afficher l'image sélectionnée
+      document.getElementById("file").addEventListener("change", (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const imagePreview = document.getElementById("image-preview");
+                imagePreview.innerHTML = `<img src="${e.target.result}" alt="Image sélectionnée" style="max-width: 100%; max-height: 100%;" />`;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
             });
+
+
+            document.addEventListener("DOMContentLoaded", () => {
+                const fileInput = document.getElementById("file");
+                const imagePreview = document.getElementById("image-preview");
+            
+                // Vérifiez que les éléments existent avant d'ajouter l'écouteur
+                if (fileInput && imagePreview) {
+                    fileInput.addEventListener("change", (event) => {
+                        const file = event.target.files[0];
+                        if (file) {
+                            const reader = new FileReader();
+                            reader.onload = (e) => {
+                                imagePreview.innerHTML = `<img src="${e.target.result}" alt="Image sélectionnée" style="max-width: 100%; max-height: 100%;" />`;
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    });
+                } else {
+                    console.error("L'élément file ou image-preview est introuvable.");
+                }
+            });
+            
             
       document.querySelector(".back-button").addEventListener("click", openModal);
       document.getElementById("picture-form").addEventListener("submit", handlePictureSubmit);
   };
+
+
 
  const addPhotoButton = document.querySelector(".add-photo-button")
  console.log(addPhotoButton);

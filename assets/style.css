@@ -429,11 +429,6 @@ h3 {
 
 
 
-
-
-
-
-
 .add-photo-form form {
     text-align: left;
     margin-top: 30px;
@@ -459,7 +454,6 @@ h3 {
     font-family: 'Syne';
     font-weight: 700;
     color: white;
-    /* background-color: #1D6154; */
 	background-color: rgb(156, 156, 156);
     width: 180px;
     text-align: center;
