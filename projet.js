@@ -276,32 +276,43 @@ document.addEventListener("DOMContentLoaded", () => {
         </button>  
       </div>
      <h3>Ajout photo</h3>
-          <div class="form add-photo-form">
-          <div class="blue-box">
-            <div class="image-placeholder">
-              <i class="fa-regular fa-image"></i>
-            <div>
-            <div class="file-section">
-                  <div id="photo-container"></div>
-                  <button class="picture-add" for="file">+ Ajouter photo</button>
-                  <p class="picture-loaded">jpg, png : 4mo max</p>
-                </div> 
-        </div>
-              <form id="picture-form" action="#" method="post"> 
-                <label for="title">Titre</label>
-                <input type="text" name="title" id="title" />
-                <label for="category">Catégorie</label>
-                <select id="category" name="category" size="1">
-                  <option value="1">Objets</option>
-                  <option value="2">Appartements</option>
-                  <option value="3">Hotels & restaurants</option>
-                </select>
-                <hr />
-                <input type="submit" value="Valider" />
-              </form>
-            </div> `
+            <div class="form add-photo-form">
+            <form id="picture-form" action="#" method="post"> 
+                <div class="blue-box">
+                    <div class="image-placeholder">
+                    <i class="fa-regular fa-image"></i>
+                    <div>
+                    <div class="file-section">
+                        <div id="photo-container"></div>
+                        <input type="file" id="file" style="display: none;" />
+                        <button class="picture-add" for="file" id="triggerFileUpload">+ Ajouter photo</button>
 
-      document.querySelector(".back-button").addEventListener("click", openFirstModal);
+                        <p class="picture-loaded">jpg, png : 4mo max</p>
+                        </div> 
+                    </div>  
+                    
+                        <label for="title">Titre</label>
+                        <input type="text" name="title" id="title" />
+                        <label for="category">Catégorie</label>
+                        <select id="category" name="category" size="1">
+                        <option value="1">Objets</option>
+                        <option value="2">Appartements</option>
+                        <option value="3">Hotels & restaurants</option>
+                        </select>
+                        <hr />
+                        <input type="submit" value="Valider" />
+                </form>
+                </div> 
+            </div>
+            `
+
+            document.getElementById("triggerFileUpload").addEventListener("click", function(event) {
+                event.preventDefault(); // --> Empêche le rechargement de la page
+                document.getElementById("file").click(); // Déclenche le clic sur l'input caché pour mettre photo
+            });
+            
+      document.querySelector(".back-button").addEventListener("click", openModal);
+      document.getElementById("picture-form").addEventListener("submit", handlePictureSubmit);
   };
 
  const addPhotoButton = document.querySelector(".add-photo-button")
@@ -321,30 +332,37 @@ document.addEventListener("DOMContentLoaded", () => {
   });       
 
 
-  modal.querySelector(".back-button").addEventListener("click", openModal) 
-  modal.querySelector(".js-modal-close").addEventListener("click", closeModal)
+  //modal.querySelector(".back-button").addEventListener("click", openModal) 
+  //modal.querySelector(".js-modal-close").addEventListener("click", closeModal)
  
 
- const backButton = document.querySelector(".back-button")
- backButton.addEventListener("click", openModal)
 
 
 
 
+ 
+
+ const backButton = document.querySelector(".back-button");
+ backButton.addEventListener("click", toggleModal);
+ 
 
 
- const toggleModal = () => {
-    const modalWrapper = document.querySelector(".modal-wrapper");
-    modalWrapper.classList.toggle("is-open");
 
+ function toggleModal() {
+    const galleryModal = document.querySelector(".gallery-modal");
+    const addModal = document.querySelector(".add-modal");
+  
     if (
-        (document.querySelector(".gallery-modal").style.display = "flex") === "flex"
+      galleryModal.style.display === "block" ||
+      galleryModal.style.display === ""
     ) {
-        document.querySelector(".gallery-modal").style.display = "none";
-        document.querySelector(".add-modal").style.display = "block"
+      galleryModal.style.display = "none";
+      addModal.style.display = "block";
+    } else {
+      galleryModal.style.display = "block";
+      addModal.style.display = "none";
     }
-
-  };   
+  }  
 
  
 
