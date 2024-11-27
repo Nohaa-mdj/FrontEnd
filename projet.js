@@ -279,7 +279,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="form add-photo-form">
             <form id="picture-form" action="#" method="post"> 
                 <div class="blue-box">
-                    <div class="image-placeholder">
+                    <div class="image-placeholder" id="image-placeholder">
                     <div id="image-preview"></div>
                     <i class="fa-regular fa-image"></i>
                     <div>
@@ -314,6 +314,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById("file").click(); // Déclenche le clic sur l'input caché pour mettre photo
 
                 const imagePreview = document.getElementById("photo-container"); 
+                const fileInput = document.getElementById("file");
+
 
              
 
@@ -332,10 +334,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
             });
 
-
-            document.addEventListener("DOMContentLoaded", () => {
-                const fileInput = document.getElementById("file");
-                const imagePreview = document.getElementById("image-preview");
             
                 // Vérifiez que les éléments existent avant d'ajouter l'écouteur
                 if (fileInput && imagePreview) {
@@ -352,18 +350,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else {
                     console.error("L'élément file ou image-preview est introuvable.");
                 }
-            });
+            };
             
             
       document.querySelector(".back-button").addEventListener("click", openModal);
       document.getElementById("picture-form").addEventListener("submit", handlePictureSubmit);
-  };
+    
+
+
 
 
 
  const addPhotoButton = document.querySelector(".add-photo-button")
  console.log(addPhotoButton);
  addPhotoButton.addEventListener("click", switchModal)  
+ 
+
  
 
 
@@ -478,7 +480,7 @@ function handlePictureSubmit() {
         return;
       }
 
-      let response = await fetch(`${url}/works`, {
+      let response = await fetch(`http://localhost:5678/api/works`, {
         method: "POST",
         headers: {
           Authorization: "Bearer " + token,
