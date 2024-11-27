@@ -385,7 +385,17 @@ document.addEventListener("DOMContentLoaded", () => {
  
 
 
+// fonctionnement des boutons closes et back de la modale 
 
+
+document.addEventListener("DOMContentLoaded", () => {
+  const closeButtons = document.querySelectorAll(".js-modal-close");
+  closeButtons.forEach((button) =>
+      button.addEventListener("click", closeModal)
+  );
+
+
+});
 
 
  
