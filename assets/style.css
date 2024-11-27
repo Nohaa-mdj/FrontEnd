@@ -103,6 +103,7 @@ nav ul {
     display: flex;
     align-items: center;
     list-style-type: none;
+    justify-content: end;
 
 }
 nav li {

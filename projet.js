@@ -1,5 +1,5 @@
 
-async function afficherProjets(filter) {
+ async function afficherProjets(filter) {
     document.querySelector(".gallery").innerHTML = ""
     const url = "http://localhost:5678/api/works"
     
@@ -500,3 +500,5 @@ function handlePictureSubmit() {
     }
   });
 }                  
+
+

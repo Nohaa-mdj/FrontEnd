@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {      //car ne détecte pas le loginform du html
+ document.addEventListener("DOMContentLoaded", () => {      //car ne détecte pas le loginform du html
 
     const loginApi = "http://localhost:5678/api/users/login"
 
@@ -43,6 +43,9 @@ document.addEventListener("DOMContentLoaded", () => {      //car ne détecte pas
         }
     }
 })    
+
+
+
 
 
 
