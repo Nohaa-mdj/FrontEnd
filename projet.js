@@ -266,46 +266,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   const switchModal = function() {
-    document.querySelector(".modal-wrapper").innerHTML = `
-     <div class="modal-buttons-container">
-      <button class="back-button">
-        <i class="fa-solid fa-arrow-left"></i>
-      </button>
-        <button class="js-modal-close">
-          <i class="fa-solid fa-xmark"></i>
-        </button>  
-      </div>
-     <h3>Ajout photo</h3>
-            <div class="form add-photo-form">
-            <form id="picture-form" action="#" method="post"> 
-                <div class="blue-box">
-                    <div class="image-placeholder" id="image-placeholder">
-                    <div id="image-preview"></div>
-                    <i class="fa-regular fa-image"></i>
-                    <div>
-                    <div class="file-section">
-                        <div id="photo-container"></div>
-                        <input type="file" id="file" style="display: none;" accept="image/*" />
-                        <button class="picture-add" for="file" id="triggerFileUpload">+ Ajouter photo</button>
 
-                        <div class="picture-loaded"><p>jpg, png : 4mo max</p></div
-                        </div> 
-                    </div>  
-                    
-                        <label for="title">Titre</label>
-                        <input type="text" name="title" id="title" />
-                        <label for="category">Catégorie</label>
-                        <select id="category" name="category" size="1">
-                        <option value="1">Objets</option>
-                        <option value="2">Appartements</option>
-                        <option value="3">Hotels & restaurants</option>
-                        </select>
-                        <hr />
-                        <input type="submit" value="Valider" />
-                </form>
-                </div> 
-            </div>
-            `
+    const galleryModalContainer = document.getElementById("gallery-modal")
+    const formModalContainer = document.getElementById("form-modal")
+    const backButton = document.getElementById("back-button")
+
+    galleryModalContainer.classList.add("hidden")
+    formModalContainer.classList.remove("hidden")
+    backButton.classList.remove("hidden")
 
 
 
@@ -336,6 +304,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             
                 // Vérifiez que les éléments existent avant d'ajouter l'écouteur
+
                 if (fileInput && imagePreview) {
                     fileInput.addEventListener("change", (event) => {
                         const file = event.target.files[0];
@@ -353,21 +322,17 @@ document.addEventListener("DOMContentLoaded", () => {
             };
             
             
-      document.querySelector(".back-button").addEventListener("click", openModal);
+      
       document.getElementById("picture-form").addEventListener("submit", handlePictureSubmit);
     
-
+      document.querySelector(".js-modal-close").addEventListener("click", closeModal);
 
 
 
 
  const addPhotoButton = document.querySelector(".add-photo-button")
  console.log(addPhotoButton);
- addPhotoButton.addEventListener("click", switchModal)  
- 
-
- 
-
+ //addPhotoButton.addEventListener("click", switchModal)  
 
 
  document.addEventListener("DOMContentLoaded", () => {
@@ -380,13 +345,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });       
 
 
-  //modal.querySelector(".back-button").addEventListener("click", openModal) 
-  //modal.querySelector(".js-modal-close").addEventListener("click", closeModal)
- 
-
-
 // fonctionnement des boutons closes et back de la modale 
-
 
 document.addEventListener("DOMContentLoaded", () => {
   const closeButtons = document.querySelectorAll(".js-modal-close");
@@ -394,32 +353,45 @@ document.addEventListener("DOMContentLoaded", () => {
       button.addEventListener("click", closeModal)
   );
 
+  if (closeModalButton) {
+    closeModalButton.addEventListener("click", () => {
+        const modal = document.querySelector(".modal");
+        modal.style.display = "none"; // Ferme la modale
+    });
+} else {
+    console.error("Bouton Close introuvable.");
+}
+
+const backButton = document.getElementById("back-button")
+
+if (backButton) {
+    backButton.addEventListener("click", () => toggleModal(true)); // Retourne à la galerie
+} else {
+    console.error("Bouton Back introuvable.");
+}
+  
 
 });
 
 
  
 
- const backButton = document.querySelector(".back-button");
- backButton.addEventListener("click", toggleModal);
+// const backButton = document.querySelector(".back-button");
+ //backButton.addEventListener("click", toggleModal);
  
 
 
 
  function toggleModal() {
-    const galleryModal = document.querySelector(".gallery-modal");
-    const addModal = document.querySelector(".add-modal");
-  
-    if (
-      galleryModal.style.display === "block" ||
-      galleryModal.style.display === ""
-    ) {
-      galleryModal.style.display = "none";
-      addModal.style.display = "block";
-    } else {
-      galleryModal.style.display = "block";
-      addModal.style.display = "none";
-    }
+
+  const galleryModalContainer = document.getElementById("gallery-modal")
+  const formModalContainer = document.getElementById("form-modal")
+  const backButton = document.getElementById("back-button")
+
+  galleryModalContainer.classList.remove("hidden")
+  formModalContainer.classList.add("hidden")
+  backButton.classList.add("hidden")
+
   }  
 
  
@@ -475,7 +447,7 @@ function handlePictureSubmit() {
 
   addPictureForm.addEventListener("submit", async (event) => {
     event.preventDefault();
-    const hasImage = document.querySelector("#photo-container").firstChild;
+    const hasImage = document.querySelector("#gallery-modal").firstChild;
     if (hasImage && titleValue) {
       const formData = new FormData();
 
