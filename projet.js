@@ -253,12 +253,12 @@ function ajouterEcouteursSuppression() {
 //écouteur du bouton ajouter photo 
 
 document.addEventListener("DOMContentLoaded", () => {
-    const addPhotoButton = document.querySelector(".add-photo-button");
-    if (addPhotoButton) {
-      addPhotoButton.addEventListener("click", switchModal);
-    } else {
-      console.error("Le bouton d'ajout de photo n'a pas été trouvé");
-    }
+  const addPhotoButton = document.querySelector(".add-photo-button");
+  if (addPhotoButton) {
+    addPhotoButton.addEventListener("click", switchModal);
+  } else {
+    console.error("Le bouton d'ajout de photo n'a pas été trouvé");
+  }
 });
 
 
@@ -274,6 +274,7 @@ document.addEventListener("DOMContentLoaded", () => {
     galleryModalContainer.classList.add("hidden")
     formModalContainer.classList.remove("hidden")
     backButton.classList.remove("hidden")
+   
 
 
 
@@ -332,17 +333,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
  const addPhotoButton = document.querySelector(".add-photo-button")
  console.log(addPhotoButton);
- //addPhotoButton.addEventListener("click", switchModal)  
-
-
- document.addEventListener("DOMContentLoaded", () => {
-    const addPhotoButton = document.querySelector(".add-photo-button");
-    if (addPhotoButton) {
-      addPhotoButton.addEventListener("click", switchModal);
-    } else {
-      console.error("Le bouton d'ajout de photo n'a pas été trouvé");
-    }
-  });       
+ //addPhotoButton.addEventListener("click", switchModal)        
 
 
 // fonctionnement des boutons closes et back de la modale 
@@ -362,23 +353,7 @@ document.addEventListener("DOMContentLoaded", () => {
     console.error("Bouton Close introuvable.");
 }
 
-const backButton = document.getElementById("back-button")
-
-if (backButton) {
-    backButton.addEventListener("click", () => toggleModal(true)); // Retourne à la galerie
-} else {
-    console.error("Bouton Back introuvable.");
-}
-  
-
 });
-
-
- 
-
-// const backButton = document.querySelector(".back-button");
- //backButton.addEventListener("click", toggleModal);
- 
 
 
 
@@ -393,10 +368,6 @@ if (backButton) {
   backButton.classList.add("hidden")
 
   }  
-
- 
-
-
 
 
 
