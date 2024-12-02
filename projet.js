@@ -244,6 +244,61 @@ async function deleteWork(event) {
 }
 
 
+//BOUTON RETOUR FONCTIONNEL
+
+document.addEventListener("DOMContentLoaded", () => {
+  const backButton = document.getElementById("back-button");
+  const galleryModalContainer = document.getElementById("gallery-modal");
+  const formModalContainer = document.getElementById("form-modal");
+
+  if (!backButton || !galleryModalContainer || !formModalContainer) {
+    console.error("Un ou plusieurs éléments nécessaires ('back-button', 'gallery-modal', 'form-modal') sont introuvables.");
+    return;
+  }
+
+
+  backButton.addEventListener("click", () => {
+    afficherGalleryModal(); 
+  });
+
+
+  function afficherGalleryModal() {
+    galleryModalContainer.classList.remove("hidden");
+    galleryModalContainer.style.display = "block";
+
+    formModalContainer.classList.add("hidden");
+    formModalContainer.style.display = "none";
+
+    backButton.classList.add("hidden"); 
+  }
+
+
+  function afficherFormModal() {
+    galleryModalContainer.classList.add("hidden");
+    galleryModalContainer.style.display = "none";
+
+    formModalContainer.classList.remove("hidden");
+    formModalContainer.style.display = "block";
+
+    backButton.classList.remove("hidden"); 
+  }
+
+
+  const addPhotoButton = document.querySelector(".add-photo-button");
+  if (addPhotoButton) {
+    addPhotoButton.addEventListener("click", () => {
+      afficherFormModal(); 
+    });
+  } else {
+    console.error("Le bouton 'Ajouter une photo' est introuvable.");
+  }
+});
+
+
+
+
+
+
 // Fonction pour ajouter les écouteurs aux icônes poubelle dans la modale
 function ajouterEcouteursSuppression() {
     const trashIcons = document.querySelectorAll(".gallery-modal .fa-trash-can");
@@ -368,6 +423,7 @@ document.addEventListener("DOMContentLoaded", () => {
   backButton.classList.add("hidden")
 
   }  
+
 
 
 
