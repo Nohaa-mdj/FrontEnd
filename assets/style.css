@@ -349,10 +349,12 @@ footer nav ul {
     width: 100%;
 }
 
-.close-button-container {
+.close-button-container{
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
+    flex-direction: row-reverse;
 }
+
 
 .js-modal-close {
     background-color: white;
@@ -369,6 +371,10 @@ h3 {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 20px; 
+}
+
+.back-button {
+    justify-content: left;
 }
 
 .hr {
