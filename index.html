@@ -9,8 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
     <meta name="description" content="">
     <link rel="stylesheet" href="./assets/style.css">
-    <script src="https://kit.fontawesome.com/2411c5b015.js" crossorigin="anonymous"></script>"> 
-    <script src="projet.js"></script>
+    <script src="https://kit.fontawesome.com/2411c5b015.js" crossorigin="anonymous"></script>">
+    <script src="projet.js" defer></script>
 
 </head>
 <body>
@@ -23,7 +23,7 @@
                 </button>
                 <button class="back-button hidden" id="back-button">
                     <i class="fa-solid fa-arrow-left"></i>
-                  </button> 
+                  </button>
             </div>
             <div id="gallery-modal">
                 <h3>Galerie photo</h3>
@@ -36,19 +36,19 @@
             <div id="form-modal" class="hidden">
                 <h3>Ajout photo</h3>
                       <div class="form add-photo-form">
-                      <form id="picture-form" action="#" method="post"> 
+                      <form id="picture-form">
                           <div class="blue-box">
                               <div class="image-placeholder" id="image-placeholder">
                               <div id="image-preview"></div>
-                              <i class="fa-regular fa-image"></i>
-                              <div>
+                              
                               <div class="file-section">
                                   <div id="photo-container"></div>
-                                  <input type="file" id="file" style="display: none;" accept="image/*" />
+                                  <i class="fa-regular fa-image"></i>
+                                  <input name="image" type="file" id="file" style="display: none;" accept="image/*" />
                                   <button class="picture-add" for="file" id="triggerFileUpload">+ Ajouter photo</button>
-          
+
                                   <div class="picture-loaded"><p>jpg, png : 4mo max</p></div>
-                              
+
                                   <label for="title">Titre</label>
                                   <input type="text" name="title" id="title" />
                                   <label for="category">Catégorie</label>
@@ -60,10 +60,10 @@
                                   <hr />
                                   <input type="submit" value="Valider" />
                           </form>
-                          </div> 
+                          </div>
                       </div>
             </div>
-          
+
         </div>
 		<div class="add-modal">
 		</div>
@@ -98,7 +98,7 @@
         <div class="div-container">
             <div class="tous">Tous</div>
         </div>
-        <div class="gallery"> 
+        <div class="gallery">
         </div>
     </section>
     <section id="contact">
