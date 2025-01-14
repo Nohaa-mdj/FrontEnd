@@ -9,61 +9,61 @@
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
     <meta name="description" content="">
     <link rel="stylesheet" href="./assets/style.css">
-    <script src="https://kit.fontawesome.com/2411c5b015.js" crossorigin="anonymous"></script>">
+    <script src="https://kit.fontawesome.com/2411c5b015.js" crossorigin="anonymous"></script>
     <script src="projet.js" defer></script>
 
 </head>
 <body>
-    <aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal" style="display: none;">
+    <aside id="modal1" class="modal" aria-hidden="true" aria-labelledby="titlemodal" style="display: none;">
 
         <div class="modal-wrapper js-modal-stop">
-             <div class="close-button-container">
+            <div class="close-button-container">
                 <button class="js-modal-close">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
                 <button class="back-button hidden" id="back-button">
                     <i class="fa-solid fa-arrow-left"></i>
-                  </button>
+                </button>
             </div>
             <div id="gallery-modal">
                 <h3>Galerie photo</h3>
                 <div class="gallery-modal"></div>
-                <hr/>
+                <hr>
                 <div class="modal-button-container">
                     <button class="add photo add-photo-button">Ajouter une photo</button>
                 </div>
             </div>
             <div id="form-modal" class="hidden">
                 <h3>Ajout photo</h3>
-                      <div class="form add-photo-form">
-                      <form id="picture-form">
-                          <div class="blue-box">
-                              <div class="image-placeholder" id="image-placeholder">
-                              <div id="image-preview"></div>
-                              
-                              <div class="file-section">
-                                  <div id="photo-container"></div>
-                                  <i class="fa-regular fa-image"></i>
-                                  <input name="image" type="file" id="file" style="display: none;" accept="image/*" />
-                                  <button class="picture-add" for="file" id="triggerFileUpload">+ Ajouter photo</button>
-
-                                  <div class="picture-loaded"><p>jpg, png : 4mo max</p></div>
-
-                                  <label for="title">Titre</label>
-                                  <input type="text" name="title" id="title" />
-                                  <label for="category">Catégorie</label>
-                                  <select id="category" name="category" size="1">
-                                  <option value="1">Objets</option>
-                                  <option value="2">Appartements</option>
-                                  <option value="3">Hotels & restaurants</option>
-                                  </select>
-                                  <hr />
-                                  <input type="submit" value="Valider" />
-                          </form>
-                          </div>
-                      </div>
+                    <div class="form add-photo-form">
+                        <form id="picture-form">
+                            <div class="blue-box">
+                                <div class="image-placeholder" id="image-placeholder">
+                                    <div id="image-preview"></div>
+                                    <div class="file-section">
+                                        <div id="photo-container">
+                                            <i class="fa-regular fa-image"></i>
+                                            <input name="image" type="file" id="file" style="display: none;" accept="image/*" />
+                                            <button class="picture-add" for="file" id="triggerFileUpload">+ Ajouter photo</button>
+                                            <div class="picture-loaded">
+                                                <p>jpg, png : 4mo max</p>
+                                            </div>
+                                        </div>
+                                    <label for="title">Titre</label>
+                                    <input type="text" name="title" id="title" />
+                                    <label for="category">Catégorie</label>
+                                    <select id="category" name="category" size="1">
+                                    <option value="1">Objets</option>
+                                    <option value="2">Appartements</option>
+                                    <option value="3">Hotels & restaurants</option>
+                                    </select>
+                                    <hr>
+                                    <input type="submit" value="Valider" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
             </div>
-
         </div>
 		<div class="add-modal">
 		</div>
@@ -77,7 +77,6 @@
             <li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
         </ul>
     </nav>
-</header>
 <main>
     <section id="introduction">
         <figure>
