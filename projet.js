@@ -1,5 +1,6 @@
 async function afficherProjets(filter) {
   document.querySelector(".gallery").innerHTML = "";
+  document.querySelector(".gallery-modal").innerHTML = "";
   const url = "http://localhost:5678/api/works";
 
   try {
@@ -8,55 +9,52 @@ async function afficherProjets(filter) {
       throw new Error(`Response status: ${response.status}`);
     }
 
-    const json = await response.json();
+    let works = await response.json();
 
     if (filter) {
-      const filtered = json.filter((data) => data.categoryId === filter);
-      for (let i = 0; i < filtered.length; i++) {
-        setFigure(filtered[i]);
-        setModalFigure(filtered[i]);
-      }
-    } else {
-      for (let i = 0; i < json.length; i++) {
-        setFigure(json[i]);
-        setModalFigure(json[i]);
-      }
+      works = works.filter((data) => data.categoryId === filter); //filtrer les works
     }
 
-    //supprimer élément
-
-    const trashCans = document.querySelectorAll(".fa-trash-can");
-    console.log(trashCans);
-
-    trashCans.forEach((e) =>
-      e.addEventListener("click", (event) => deleteWork(event))
-    );
-
-    ajouterEcouteursSuppression();
+    for (const work of works) {
+      setFigure(work);
+      setModalFigure(work);
+    }
   } catch (error) {
     console.error(error.message);
   }
 }
 
-afficherProjets();
+//afficherProjets();
 
 function setFigure(data) {
   const figure = document.createElement("figure");
-  figure.innerHTML = `<div class="image-container">
-  <img src="${data.imageUrl}" alt="${data.title}">
-  <figcaption>${data.title}</figcaption>
-  </div>`;
-  document.querySelector(".gallery").append(figure);
+  figure.classList.add("image-container");
+  const img = document.createElement("img");
+  img.src = data.imageUrl;
+  img.alt = data.title;
+  figure.appendChild(img);
+  const figcaption = document.createElement("figcaption");
+  figcaption.innerText = data.title;
+  figure.appendChild(figcaption);
+  document.querySelector(".gallery").appendChild(figure);
 }
 
-function setFigureModal(data) {
+function setModalFigure(data) {
   const figure = document.createElement("figure");
-  figure.innerHTML = `<div class="image-container">
-  <img src="${data.imageUrl}" alt="${data.title}">
-  <figcaption>${data.title}</figcaption>
-  <i id = ${data.id} class = "fa-solid fa-trash-can overlay-icon"></i>
-  </div>`;
-  document.querySelector(".modal-gallery").append(figure);
+  figure.classList.add("image-container");
+  const img = document.createElement("img");
+  img.src = data.imageUrl;
+  img.alt = data.title;
+  figure.appendChild(img);
+  const figcaption = document.createElement("figcaption");
+  figcaption.innerText = data.title;
+  figure.appendChild(figcaption);
+  const trashIcon = document.createElement("i");
+  trashIcon.classList.add("fa-solid", "fa-trash-can", "overlay-icon");
+  trashIcon.dataset.id = data.id;
+  trashIcon.addEventListener("click", deleteWork); // Ajout de l'écouteur pour la suppression
+  figure.appendChild(trashIcon);
+  document.querySelector(".gallery-modal").append(figure);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -67,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
   tousButton.addEventListener("click", () => afficherProjets());
 });
 
-afficherProjets();
+//afficherProjets();
 
 async function getCategories() {
   const url = "http://localhost:5678/api/categories";
@@ -126,28 +124,16 @@ const openModal = function (e) {
   modal.style.display = null;
   modal.removeAttribute("aria-hidden");
   modal.setAttribute("aria-modal", "true");
-  modal.addEventListener("click", closeModal);
-  modal.querySelector(".js-modal-close").addEventListener("click", closeModal);
+  modal.addEventListener("click", closeModal); // fermer la modale en cliquant n'importe ou dessus
+  modal.querySelector(".js-modal-close").addEventListener("click", closeModal); // fermer la modale en cliquant sur le bouton close
   modal
     .querySelector(".js-modal-stop")
-    .addEventListener("click", stopPropagation);
+    .addEventListener("click", stopPropagation); //si on clique sur élémént parent de la modale, la modale ne se ferme pas (ne pas propager la fermeture)
 };
 
 const stopPropagation = function (e) {
   e.stopPropagation();
 };
-
-function setModalFigure(data) {
-  const figure = document.createElement("figure");
-  figure.innerHTML = `
-      <div class="image-container">
-          <img src="${data.imageUrl}" alt="${data.title}">
-          <figcaption>${data.title}</figcaption>
-          <i data-id="${data.id}" class="fa-solid fa-trash-can overlay-icon"></i>
-      </div>`;
-
-  document.querySelector(".gallery-modal").append(figure);
-}
 
 const closeModal = function (e) {
   if (modal === null) return;
@@ -219,8 +205,7 @@ async function deleteWork(event) {
         modalContainer.prepend(errorBox);
       }
     } else {
-      // let result = await response.json();    car message d'erreur avec cette ligne affiché disant qu'elle ne sert à rien
-      // console.log(result);   car ligne du haut a été supprimée
+      //window.location.reload(); // Rafraîchir la page après suppression réussie
       afficherProjets();
     }
   } catch (error) {
@@ -274,6 +259,7 @@ function ajouterEcouteursSuppression() {
 //écouteur du bouton ajouter photo
 
 document.addEventListener("DOMContentLoaded", () => {
+  const fileInput = document.getElementById("file-input");
   const addPhotoButton = document.querySelector(".add-photo-button");
   if (addPhotoButton) {
     addPhotoButton.addEventListener("click", switchModal);
@@ -288,8 +274,6 @@ const switchModal = function () {
   const galleryModalContainer = document.getElementById("gallery-modal");
   const formModalContainer = document.getElementById("form-modal");
   const backButton = document.getElementById("back-button");
-  const fileInput = document.getElementById("file");
-  const imagePreview = document.getElementById("photo-container");
 
   galleryModalContainer.classList.add("hidden");
   formModalContainer.classList.remove("hidden");
@@ -309,40 +293,32 @@ const switchModal = function () {
           const reader = new FileReader();
           reader.onload = (e) => {
             const imagePreview = document.getElementById("image-preview");
-            imagePreview.innerHTML = `<img src="${e.target.result}" alt="Image sélectionnée" style="max-width: 100%; max-height: 100%;" />`;
+            imagePreview.innerHTML = ""; // Supprime l'image précédente
+            const img = document.createElement("img");
+            img.src = e.target.result;
+            imagePreview.style.display = "block";
+            img.alt = "Image sélectionnée";
+            img.style.maxWidth = "100%";
+            img.style.maxHeight = "100%";
+            img.style.objectFit = "contain";
+            imagePreview.appendChild(img);
+            const photoContainer = document.getElementById("photo-container");
+            photoContainer.classList.add("hidden");
           };
           reader.readAsDataURL(file);
         }
       });
     });
-
-  // Vérifiez que les éléments existent avant d'ajouter l'écouteur
-
-  if (fileInput && imagePreview) {
-    fileInput.addEventListener("change", (event) => {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          imagePreview.innerHTML = `<img src="${e.target.result}" alt="Image sélectionnée" style="max-width: 100%; max-height: 100%;" />`;
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-  } else {
-    console.error("L'élément file ou image-preview est introuvable.");
-  }
 };
 
 document
   .getElementById("picture-form")
   .addEventListener("submit", handlePictureSubmit);
 
-document.querySelector(".js-modal-close").addEventListener("click", closeModal);
+//document.querySelector(".js-modal-close").addEventListener("click", closeModal);
 
 const addPhotoButton = document.querySelector(".add-photo-button");
 console.log(addPhotoButton);
-//addPhotoButton.addEventListener("click", switchModal)
 
 // fonctionnement des boutons closes et back de la modale
 
@@ -351,17 +327,20 @@ document.addEventListener("DOMContentLoaded", () => {
   closeButtons.forEach((button) =>
     button.addEventListener("click", closeModal)
   );
+  const pictureForm = document.getElementById("picture-form");
+  if (pictureForm) {
+    pictureForm.addEventListener("submit", handlePictureSubmit);
+  } else {
+    console.error(
+      "Le formulaire d'ajout de photo (#picture-form) est introuvable."
+    );
+  }
+});
 
-  /*
-if (closeModalButton) {
-  closeModalButton.addEventListener("click", () => {
-      const modal = document.querySelector(".modal");
-      modal.style.display = "none"; // Ferme la modale
-  });
-} else {
-  console.error("Bouton Close introuvable.");
-}
-*/
+document.addEventListener("DOMContentLoaded", function () {
+  document
+    .getElementById("picture-form")
+    .addEventListener("submit", handlePictureSubmit);
 });
 
 function toggleModal() {
@@ -369,95 +348,73 @@ function toggleModal() {
   const formModalContainer = document.getElementById("form-modal");
   const backButton = document.getElementById("back-button");
 
-  galleryModalContainer.classList.remove("hidden");
-  formModalContainer.classList.add("hidden");
-  backButton.classList.add("hidden");
+  if (galleryModalContainer.classList.contains("hidden")) {
+    galleryModalContainer.classList.remove("hidden");
+    formModalContainer.classList.add("hidden");
+    //backButton.classList.add("hidden");
+  } else {
+    galleryModalContainer.classList.add("hidden");
+    formModalContainer.classList.remove("hidden");
+    backButton.classList.remove("hidden");
+  }
 }
 
 // Gestion de l'ajout d'une nouvelle photo
-function handlePictureSubmit(event) {
-  event.preventDefault();
-  console.log("test");
-  const img = document.createElement("img");
-  const fileInput = document.getElementById("file");
-  let file; // On ajoutera dans cette variable la photo qui a été uploadée.
-  //fileInput.style.display = "none";
-  fileInput.addEventListener("change", function (event) {
-    file = event.target.files[0];
-    const maxFileSize = 4 * 1024 * 1024;
 
-    if (file && (file.type === "image/jpeg" || file.type === "image/png")) {
-      if (file.size > maxFileSize) {
-        alert("La taille de l'image ne doit pas dépasser 4 Mo.");
-        return;
-      }
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        img.src = e.target.result;
-        img.alt = "Uploaded Photo";
-        document.getElementById("photo-container").appendChild(img);
-      };
-      // Je converti l'image en une URL de donnees
-      reader.readAsDataURL(file);
-      document
-        .querySelectorAll(".picture-loaded") // Pour enlever ce qui se trouvait avant d'upload l'image
-        .forEach((e) => (e.style.display = "none"));
-    } else {
-      alert("Veuillez sélectionner une image au format JPG ou PNG.");
+async function handlePictureSubmit(event) {
+  event.preventDefault(); // Empêche le rechargement de la page
+
+  const formData = new FormData(event.target); // Récupération des données du formulaire
+  const token = sessionStorage.getItem("token"); // Récupération du token
+
+  try {
+    const response = await fetch(`http://localhost:5678/api/works`, {
+      // Envoi des données du formulaire
+      method: "POST", // Méthode POST pour ajouter un nouvel élément
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+      body: formData,
+    });
+
+    if (!response.ok) {
+      //throw new Error(`Erreur lors de l'ajout : ${response.statusText}`);
+      const errorBox = document.createElement("div");
+      errorBox.className = "error-add";
+      errorBox.innerHTML = "Erreur dans le remplissage du formulaire";
+      document.querySelector("form").prepend(errorBox);
+      return;
     }
-  });
 
-  const titleInput = document.getElementById("title");
-  let titleValue = "";
-  let selectedValue = "1";
+    const data = await response.json();
 
-  document.getElementById("category").addEventListener("change", function () {
-    selectedValue = this.value;
-  });
+    // Ajoute le nouvel élément à la galerie principale + modale
+    setFigure(data); // Appelle la fonction existante pour ajouter à la galerie principale
+    setModalFigure(data); // Appelle la fonction existante pour ajouter à la galerie de la modale
 
-  titleInput.addEventListener("input", function () {
-    titleValue = titleInput.value;
-  });
+    // ⚡️ Réactualiser la galerie modale
+    await afficherProjets(); // Recharge la galerie avec le nouvel élément ajouté
 
-  const addPictureForm = document.getElementById("picture-form");
+    // Réinitialise le formulaire
 
-  addPictureForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    console.log("test");
-    const hasImage = document.querySelector("#gallery-modal").firstChild;
-    if (hasImage && titleValue) {
-      const formData = new FormData();
+    document.getElementById("picture-form").reset(); // Réinitialise les champs
+    document.getElementById("image-preview").innerHTML = ""; // Supprime la prévisualisation
+    document.getElementById("photo-container").classList.remove("hidden");
 
-      formData.append("image", file);
-      formData.append("title", titleValue);
-      formData.append("category", selectedValue);
-      console.log(formData);
+    // Affiche la galerie après l'ajout réussi
+    document.getElementById("gallery-modal").classList.remove("hidden");
+    document.getElementById("gallery-modal").style.display = "block";
 
-      const token = sessionStorage.authToken;
+    document.getElementById("form-modal").classList.add("hidden");
+    document.getElementById("form-modal").style.display = "none";
 
-      if (!token) {
-        console.error("Token d'authentification manquant.");
-        return;
-      }
+    document.getElementById("back-button").classList.add("hidden"); // Cache le bouton retour
+    document.getElementById("back-button").style.display = "none";
 
-      let response = await fetch(`http://localhost:5678/api/works`, {
-        method: "POST",
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-        body: formData,
-      });
-
-      if (response.status !== 201) {
-        const errorText = await response.text();
-        console.error("Erreur : ", errorText);
-        const errorBox = document.createElement("div");
-        errorBox.className = "error-login";
-        errorBox.innerHTML = `Il y a eu une erreur : ${errorText}`;
-        document.querySelector("form").prepend(errorBox);
-      }
-    } else {
-      alert("Veuillez remplir tous les champs");
-    }
-  });
+    // Ferme la modale après l'ajout réussi
+    toggleModal();
+  } catch (error) {
+    console.error("Erreur :", error.message);
+    alert("Une erreur est survenue lors de l'ajout du work.");
+  }
 }
