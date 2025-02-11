@@ -293,13 +293,15 @@ const switchModal = function () {
           const reader = new FileReader();
           reader.onload = (e) => {
             const imagePreview = document.getElementById("image-preview");
+            imagePreview.classList.add("image-preview");
+            imagePreview.style.height = "210px";
             imagePreview.innerHTML = ""; // Supprime l'image précédente
             const img = document.createElement("img");
             img.src = e.target.result;
             imagePreview.style.display = "block";
             img.alt = "Image sélectionnée";
-            img.style.maxWidth = "100%";
-            img.style.maxHeight = "100%";
+            img.style.width = "100%";
+            img.style.height = "100%";
             img.style.objectFit = "contain";
             imagePreview.appendChild(img);
             const photoContainer = document.getElementById("photo-container");
@@ -314,8 +316,6 @@ const switchModal = function () {
 document
   .getElementById("picture-form")
   .addEventListener("submit", handlePictureSubmit);
-
-//document.querySelector(".js-modal-close").addEventListener("click", closeModal);
 
 const addPhotoButton = document.querySelector(".add-photo-button");
 console.log(addPhotoButton);
