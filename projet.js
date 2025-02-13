@@ -384,7 +384,7 @@ async function handlePictureSubmit(event) {
     setFigure(data); // Appelle la fonction existante pour ajouter à la galerie principale
     setModalFigure(data); // Appelle la fonction existante pour ajouter à la galerie de la modale
 
-    // ⚡️ Réactualiser la galerie modale
+    // Réactualiser la galerie modale
     await afficherProjets(); // Recharge la galerie avec le nouvel élément ajouté
 
     // Réinitialise le formulaire

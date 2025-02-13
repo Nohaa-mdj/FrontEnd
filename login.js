@@ -6,12 +6,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!loginLink) return; // Évite une erreur sur login.html (car le lien login n'existe pas ici)
 
     if (sessionStorage.getItem("token")) {
-      loginLink.textContent = "Logout";
+      loginLink.textContent = "logout";
       loginLink.href = "#";
       loginLink.removeEventListener("click", logout); // Empêche la duplication d'événements
       loginLink.addEventListener("click", logout);
     } else {
-      loginLink.textContent = "Login";
+      loginLink.textContent = "login";
       loginLink.href = "login.html";
     }
   }
