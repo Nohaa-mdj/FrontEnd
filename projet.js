@@ -24,8 +24,6 @@ async function afficherProjets(filter) {
   }
 }
 
-//afficherProjets();
-
 function setFigure(data) {
   const figure = document.createElement("figure");
   figure.classList.add("image-container");
@@ -58,14 +56,11 @@ function setModalFigure(data) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  //être sûr que toutes les images s'affichent au début
   afficherProjets();
 
   const tousButton = document.querySelector(".tous");
   tousButton.addEventListener("click", () => afficherProjets());
 });
-
-//afficherProjets();
 
 async function getCategories() {
   const url = "http://localhost:5678/api/categories";
@@ -124,7 +119,7 @@ const openModal = function (e) {
   modal.style.display = null;
   modal.removeAttribute("aria-hidden");
   modal.setAttribute("aria-modal", "true");
-  modal.addEventListener("click", closeModal); // fermer la modale en cliquant n'importe ou dessus
+  modal.addEventListener("click", closeModal);
   modal.querySelector(".js-modal-close").addEventListener("click", closeModal); // fermer la modale en cliquant sur le bouton close
   modal
     .querySelector(".js-modal-stop")
@@ -183,7 +178,6 @@ document.querySelectorAll(".js-modal").forEach((a) => {
 
 async function deleteWork(event) {
   event.stopPropagation();
-  // const id = event.srcElement.id;
   const id = event.target.dataset.id;
   const deleteApi = "http://localhost:5678/api/works/";
   const token = sessionStorage.getItem("token");
@@ -205,7 +199,6 @@ async function deleteWork(event) {
         modalContainer.prepend(errorBox);
       }
     } else {
-      //window.location.reload(); // Rafraîchir la page après suppression réussie
       afficherProjets();
     }
   } catch (error) {
@@ -295,7 +288,7 @@ const switchModal = function () {
             const imagePreview = document.getElementById("image-preview");
             imagePreview.classList.add("image-preview");
             imagePreview.style.height = "210px";
-            imagePreview.innerHTML = ""; // Supprime l'image précédente
+            imagePreview.innerHTML = "";
             const img = document.createElement("img");
             img.src = e.target.result;
             imagePreview.style.display = "block";
@@ -351,7 +344,6 @@ function toggleModal() {
   if (galleryModalContainer.classList.contains("hidden")) {
     galleryModalContainer.classList.remove("hidden");
     formModalContainer.classList.add("hidden");
-    //backButton.classList.add("hidden");
   } else {
     galleryModalContainer.classList.add("hidden");
     formModalContainer.classList.remove("hidden");
